@@ -9,19 +9,10 @@ import java.io.IOException;
 import java.net.Socket;  
 import java.net.UnknownHostException;  
   
-public class FileIncepter {  
-    public FileIncepter(){  
-          
-    }  
-    public void receiveFile(String savePath,String hostName,int portNumber){  
-        Socket socket=null;  
-        try {   
-            socket = new Socket(hostName,portNumber);   
-          } catch (UnknownHostException e1) {   
-            e1.printStackTrace();   
-          } catch (IOException e1) {   
-            e1.printStackTrace();   
-          }   
+public class ReceiveFile {  
+     
+    public static void receiveFile(String savePath,Socket socket){  
+       
         DataInputStream dis=null;  
         try {   
             dis = new DataInputStream(new BufferedInputStream(socket   
