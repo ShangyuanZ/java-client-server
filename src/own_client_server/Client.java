@@ -37,7 +37,7 @@ public class Client {
 		            e1.printStackTrace();   
 		          }  
 		        
-				System.out.println("Client: pdf");
+				System.out.println("Client: notion");
 				System.out.println("enter the name of the notion");
 				
 				String notion;
@@ -46,9 +46,55 @@ public class Client {
 				SendToServer.sendToServer(notion, socket);
 				//a function to receive file
 				ReceiveFile.receiveFile("/Users/zhangshangyuan/Documents/书籍资料/", socket);
+				
+				socket.close();
 			}
 			
+			if (fromUser.equals("graphe")){
+				Socket socket=null;  
+		        try {   
+		            socket = new Socket(hostName,portNumber);   
+		          } catch (UnknownHostException e1) {   
+		            e1.printStackTrace();   
+		          } catch (IOException e1) {   
+		            e1.printStackTrace();   
+		          }  
+		        
+				System.out.println("Client: graphe");
+				System.out.println("enter the name of the graphe");
+				
+				String notion;
+				notion = stdIn.readLine();
+				//here we need a function to send notion to the server
+				SendToServer.sendToServer(notion, socket);
+				//a function to receive file
+				ReceiveFile.receiveFile("/Users/zhangshangyuan/Documents/书籍资料/", socket);
+				
+				socket.close();
+			}
 			
+			if (fromUser.equals("pdf")){
+				Socket socket=null;  
+		        try {   
+		            socket = new Socket(hostName,portNumber);   
+		          } catch (UnknownHostException e1) {   
+		            e1.printStackTrace();   
+		          } catch (IOException e1) {   
+		            e1.printStackTrace();   
+		          }  
+		        
+				System.out.println("Client: pdf");
+				System.out.println("enter the name of the pdf");
+				
+				String notion;
+				notion = stdIn.readLine();
+				//here we need a function to send notion to the server
+				SendToServer.sendToServer(notion, socket);
+				//a function to receive file
+				ReceiveFile.receiveFile("/Users/zhangshangyuan/Documents/书籍资料/", socket);
+				
+				socket.close();
+			}
 		
 		} catch (UnknownHostException e){
 			System.err.println("Don't know about the host" + hostName);
@@ -62,33 +108,5 @@ public class Client {
 }
 		
 		
-		/*
-		String hostName = "localhost"; // temporary
-		int portNumber = 8821 ;// temporary   Integer.parseInt(args[1]);
-		
-		try {
-			
-			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-			
-			String fromUser;
-			
-			System.out.println("What do you want ?  1.notion  2.graph  3.pdf");
-			
-			fromUser = stdIn.readLine();
-			
-			
-			if (fromUser.equals("pdf")){
-				System.out.println("Client: pdf");
-				new FileIncepter().receiveFile("/Users/zhangshangyuan/Documents/书籍资料/", "localhost", portNumber);
-			}
-			
-		} catch (UnknownHostException e){
-			System.err.println("Don't know about the host" + hostName);
-			System.exit(1);   
-		} catch (IOException e){
-			System.err.println("Couldn't get I/O for the connection" + hostName);
-			System.exit(1);
-		}
-	}
-    */
+
 
