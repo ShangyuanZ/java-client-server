@@ -17,8 +17,6 @@ public class Client {
 		String hostName = args[0];
         int portNumber = Integer.parseInt(args[1]);
 		
-		
-		
 		try {
 			String fromUser;
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -36,6 +34,8 @@ public class Client {
 		          } catch (IOException e1) {   
 		            e1.printStackTrace();   
 		          }  
+		        //send the demand of notion
+		        SendToServer.sendToServer("notion", socket);
 		        
 				System.out.println("Client: notion");
 				System.out.println("enter the name of the notion");
@@ -59,14 +59,16 @@ public class Client {
 		          } catch (IOException e1) {   
 		            e1.printStackTrace();   
 		          }  
+		      //send the demand of graphe
+		        SendToServer.sendToServer("graphe", socket);
 		        
 				System.out.println("Client: graphe");
 				System.out.println("enter the name of the graphe");
 				
-				String notion;
-				notion = stdIn.readLine();
+				String graphe;
+				graphe = stdIn.readLine();
 				//here we need a function to send notion to the server
-				SendToServer.sendToServer(notion, socket);
+				SendToServer.sendToServer(graphe, socket);
 				//a function to receive file
 				ReceiveFile.receiveFile("/Users/zhangshangyuan/Documents/书籍资料/", socket);
 				
@@ -82,14 +84,15 @@ public class Client {
 		          } catch (IOException e1) {   
 		            e1.printStackTrace();   
 		          }  
-		        
+		      //send the demand of pdf
+		        SendToServer.sendToServer("pdf", socket);
 				System.out.println("Client: pdf");
 				System.out.println("enter the name of the pdf");
 				
-				String notion;
-				notion = stdIn.readLine();
+				String pdf;
+				pdf = stdIn.readLine();
 				//here we need a function to send notion to the server
-				SendToServer.sendToServer(notion, socket);
+				SendToServer.sendToServer(pdf, socket);
 				//a function to receive file
 				ReceiveFile.receiveFile("/Users/zhangshangyuan/Documents/书籍资料/", socket);
 				

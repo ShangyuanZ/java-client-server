@@ -52,6 +52,9 @@ public class Server{
             
             if (inputLine.equals("notion")){
             	// run a python program which receive a notion and return a file jason.
+            	String notion;
+            	notion = in.readLine();
+            	if (notion.equals("voyages"))
             	
             	// send the file to client
             	SendFile.sendFile("/Users/zhangshangyuan/Downloads/voyages.pdf", portNumber, clientSocket);
@@ -59,11 +62,22 @@ public class Server{
             }
             
             if (inputLine.equals("graphe")){
+            	String graphe;
+            	graphe = in.readLine();
+            	
+            	//python program
+            	
+            	SendFile.sendFile("/Users/zhangshangyuan/Downloads/voyages.pdf", portNumber, clientSocket);
             	
             }
             
             if (inputLine.equals("pdf")){
+            	String pdf;
+            	pdf = in.readLine();
             	
+            	//python program
+            	
+            	SendFile.sendFile("/Users/zhangshangyuan/Downloads/voyages.pdf", portNumber, clientSocket);
             }
             
             serverSocket.close();
