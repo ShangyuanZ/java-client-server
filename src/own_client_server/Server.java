@@ -1,89 +1,24 @@
 package own_client_server;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import org.python.util.PythonInterpreter;
 
-import java.io.BufferedInputStream;  
-import java.io.DataInputStream;  
-import java.io.DataOutputStream;  
-import java.io.File;  
-import java.io.FileInputStream;  
-import java.io.FileNotFoundException;  
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.ServerSocket;  
-import java.net.Socket;  
+
+
+
+
   
-public class Server {  
-    private ServerSocket ss=null;  
-    public Server(){  
-          
-    }  
-    public void sendFile(String filePath,int port){  
-        DataOutputStream dos=null;  
-        DataInputStream dis=null;  
-          
-        Socket socket=null;  
-        try {  
-            File file=new File(filePath);  
-            ss=new ServerSocket(port);  
-            socket=ss.accept();  
-            dos=new DataOutputStream(socket.getOutputStream());  
-            dis=new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)));  
-              
-            int buffferSize=1024;  
-            byte[]bufArray=new byte[buffferSize];  
-            dos.writeUTF(file.getName());   
-            dos.flush();   
-            dos.writeLong((long) file.length());   
-            dos.flush();   
-            while (true) {   
-                int read = 0;   
-                if (dis!= null) {   
-                  read = dis.read(bufArray);   
-                }   
-  
-                if (read == -1) {   
-                  break;   
-                }   
-                dos.write(bufArray, 0, read);   
-              }   
-              dos.flush();  
-        } catch (FileNotFoundException e) {  
-            // TODO Auto-generated catch block  
-            e.printStackTrace();  
-        } catch (IOException e) {  
-            // TODO Auto-generated catch block  
-            e.printStackTrace();  
-        } finally {   
-              // close all the connection   
-              try {   
-                if (dos != null)   
-                  dos.close();   
-              } catch (IOException e) {   
-              }   
-              try {   
-                if (dis != null)   
-                  dis.close();   
-              } catch (IOException e) {   
-              }   
-              try {   
-                if (socket != null)   
-                  socket.close();   
-              } catch (IOException e) {   
-              }   
-              try {   
-                if (ss != null)   
-                  ss.close();   
-              } catch (IOException e) {   
-              }   
-            }   
-  
-  
-    }  
+public class Server{  
     public static void main(String []args) throws IOException{  
     	
-    	PythonInterpreter interpreter = new PythonInterpreter();
+    	/*PythonInterpreter interpreter = new PythonInterpreter();
     	
     	InputStream filePy = new FileInputStream("/Users/zhangshangyuan/Documents/Client.py");
     	
@@ -92,8 +27,54 @@ public class Server {
     	
     	filePy.close();
     	
-    	interpreter.close();
+    	interpreter.close();*/  
     	
-        new Server().sendFile("/Users/zhangshangyuan/Downloads/_e3f520a46a4184060b2b6db96d9a8fb0_Semaine-1-Vocabulaire-des-voyages.pdf", 8821);  
+    	if (args.length != 1) {
+            System.err.println("Usage: java KnockKnockServer <port number>");
+            System.exit(1);
+        }
+    	
+    	int portNumber = Integer.parseInt(args[0]);
+    	 
+        try ( 
+            ServerSocket serverSocket = new ServerSocket(portNumber);
+            Socket clientSocket = serverSocket.accept();
+            PrintWriter out =
+                new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(clientSocket.getInputStream()));
+        ) {
+        	
+         
+            String inputLine;
+             
+            inputLine = in.readLine();
+            
+            if (inputLine.equals("notion")){
+            	// run a python program which receive a notion and return a file jason.
+            	
+            	// send the file to client
+            	SendFile.sendFile("/Users/zhangshangyuan/Downloads/voyages.pdf", portNumber, clientSocket);
+            	
+            }
+            
+            if (inputLine.equals("graphe")){
+            	
+            }
+            
+            if (inputLine.equals("pdf")){
+            	
+            }
+            
+            serverSocket.close();
+            clientSocket.close();
+            
+        } catch (IOException e) {
+        	
+            System.out.println("Exception caught when trying to listen on port "
+                + portNumber + " or listening for a connection");
+            System.out.println(e.getMessage());
+        }
+    	 
     }  
-} 
+}
