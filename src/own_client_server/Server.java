@@ -2,12 +2,16 @@ package own_client_server;
 
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.python.core.PyObject;
+import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
 
 
@@ -51,9 +55,20 @@ public class Server{
             inputLine = in.readLine();
             
             if (inputLine.equals("notion")){
-            	// run a python program which receive a notion and return a file jason.
             	String notion;
             	notion = in.readLine();
+            	
+            	//run a python program
+            	PythonInterpreter interpreter = new PythonInterpreter();
+            	InputStream filePy = new FileInputStream("/Users/zhangshangyuan/Documents/test.py");
+            	interpreter.execfile(filePy);
+            	
+            	PyObject someFunc = interpreter.get("test");
+            	someFunc.__call__(new PyString(notion));
+            	
+            	filePy.close();
+            	interpreter.close();
+            	
             	if (notion.equals("voyages"))
             	
             	// send the file to client
@@ -66,6 +81,17 @@ public class Server{
             	graphe = in.readLine();
             	
             	//python program
+            	PythonInterpreter interpreter = new PythonInterpreter();
+            	InputStream filePy = new FileInputStream("/Users/zhangshangyuan/Documents/test.py");
+            	interpreter.execfile(filePy);
+            	
+            	PyObject someFunc = interpreter.get("test");
+            	someFunc.__call__(new PyString(graphe));
+            	
+            	filePy.close();
+            	interpreter.close();
+            	
+            	
             	
             	SendFile.sendFile("/Users/zhangshangyuan/Downloads/voyages.pdf", portNumber, clientSocket);
             	
@@ -76,6 +102,17 @@ public class Server{
             	pdf = in.readLine();
             	
             	//python program
+            	PythonInterpreter interpreter = new PythonInterpreter();
+            	InputStream filePy = new FileInputStream("/Users/zhangshangyuan/Documents/test.py");
+            	interpreter.execfile(filePy);
+            	
+            	PyObject someFunc = interpreter.get("test");
+            	someFunc.__call__(new PyString(pdf));
+            	
+            	filePy.close();
+            	interpreter.close();
+            	
+            	
             	
             	SendFile.sendFile("/Users/zhangshangyuan/Downloads/voyages.pdf", portNumber, clientSocket);
             }
