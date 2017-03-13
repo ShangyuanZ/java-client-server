@@ -2,18 +2,11 @@ package own_client_server;
 
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.util.PythonInterpreter;
-
 
 
 
@@ -59,20 +52,10 @@ public class Server{
             	notion = in.readLine();
             	
             	//run a python program
-            	PythonInterpreter interpreter = new PythonInterpreter();
-            	InputStream filePy = new FileInputStream("/Users/zhangshangyuan/Documents/test.py");
-            	interpreter.execfile(filePy);
             	
-            	PyObject someFunc = interpreter.get("test");
-            	someFunc.__call__(new PyString(notion));
-            	
-            	filePy.close();
-            	interpreter.close();
-            	
-            	if (notion.equals("voyages"))
             	
             	// send the file to client
-            	SendFile.sendFile("/Users/zhangshangyuan/Downloads/voyages.pdf", portNumber, clientSocket);
+            	SendFile.sendFile("/Users/zhangshangyuan/Downloads/test5 (1).json", portNumber, clientSocket);
             	
             }
             
@@ -80,37 +63,16 @@ public class Server{
             	String graphe;
             	graphe = in.readLine();
             	
-            	//python program
-            	PythonInterpreter interpreter = new PythonInterpreter();
-            	InputStream filePy = new FileInputStream("/Users/zhangshangyuan/Documents/test.py");
-            	interpreter.execfile(filePy);
-            	
-            	PyObject someFunc = interpreter.get("test");
-            	someFunc.__call__(new PyString(graphe));
-            	
-            	filePy.close();
-            	interpreter.close();
             	
             	
             	
-            	SendFile.sendFile("/Users/zhangshangyuan/Downloads/voyages.pdf", portNumber, clientSocket);
+            	SendFile.sendFile("/Users/zhangshangyuan/Downloads/test5 (1).json", portNumber, clientSocket);
             	
             }
             
             if (inputLine.equals("pdf")){
             	String pdf;
             	pdf = in.readLine();
-            	
-            	//python program
-            	PythonInterpreter interpreter = new PythonInterpreter();
-            	InputStream filePy = new FileInputStream("/Users/zhangshangyuan/Documents/test.py");
-            	interpreter.execfile(filePy);
-            	
-            	PyObject someFunc = interpreter.get("test");
-            	someFunc.__call__(new PyString(pdf));
-            	
-            	filePy.close();
-            	interpreter.close();
             	
             	
             	
